@@ -1,0 +1,35 @@
+html {
+    display: grid;
+    justify-items: center;
+}
+
+form {
+    display: grid;
+    width: 20vw;
+    height: 20vw;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: 0px;
+}
+
+input {
+    text-align: center;
+    margin: -2px;
+    border: 1px gray solid;
+}
+
+.border-right {
+    border-right: 2px black solid;
+}
+
+.border-left {
+    border-left: 2px black solid;
+}
+
+.border-bottom {
+    border-bottom: 2px black solid;
+}
+
+.border-top {
+    border-top: 2px black solid;
+}
