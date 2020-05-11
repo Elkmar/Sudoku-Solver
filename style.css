@@ -14,7 +14,6 @@ form {
 
 input {
     text-align: center;
-    margin: -2px;
     border: 1px gray solid;
 }
 
@@ -32,4 +31,10 @@ input {
 
 .border-top {
     border-top: 2px black solid;
+}
+
+#solveIt {
+    width: 20vw;
+    background-color: white;
+    border: 2px lightgrey solid;
 }
