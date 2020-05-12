@@ -1,6 +1,7 @@
-solveIt = getElementById("solveIt");
+solveIt = document.getElementById("solveIt");
 
-let solve= () => {
+let solve = () => {
+    // get all the numbers entered in the grid
     let A1 = document.getElementById("A1").value;
     let A2 = document.getElementById("A2").value;
     let A3 = document.getElementById("A3").value;
@@ -83,6 +84,7 @@ let solve= () => {
     let I8 = document.getElementById("I8").value;
     let I9 = document.getElementById("I9").value;
 
+    // group all numbers in arrays
     let line1 = [A1, A2, A3, A4, A5, A6, A7, A8, A9];
     let line2 = [B1, B2, B3, B4, B5, B6, B7, B8, B9];
     let line3 = [C1, C2, C3, C4, C5, C6, C7, C8, C9];
@@ -93,7 +95,38 @@ let solve= () => {
     let line8 = [H1, H2, H3, H4, H5, H6, H7, H8, H9];
     let line9 = [I1, I2, I3, I4, I5, I6, I7, I8, I9];
 
+    // group all arrays in a grid
     let grid = [line1, line2, line3, line4, line5, line6, line7, line8, line9] 
+
+    //aget all the values of the vertical line of a value 
+    let getVerticalLine = (num, horizontalLine) => {
+        //get the index of the value in order take every value at this index in every line
+        index = horizontalLine.indexOf(num).toString();
+        verticalLine = [];
+        //iterate through every line of the grid and add the value at the index except the one from the line where the value is taken from 
+        for (line of grid) {
+            if (line != horizontalLine) {
+                verticalLine.push(line[index]);
+            } 
+        }
+        return verticalLine;
+    }
+
+    //iterate through the lines of the grid 
+    for (let line of grid) {
+        //iterate through each numbers of the grid
+        for (let num of line) {
+            //if a case is empty, we can try some numbers
+            if (num === "") {
+                //our answer must be between 1 to 0 to be correct
+                for (x of ["1", "2" ,"3", "4"," 5", "6", "7", "8", "9"]) {
+                    if (!(line.includes(x)) && !(verticalLine(x, line).includes(x) &&) {
+
+                    }
+                }
+            }
+        }
+    }
 }
 
 solveIt.addEventListener("click", solve);
