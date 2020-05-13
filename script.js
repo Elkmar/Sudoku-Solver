@@ -96,12 +96,12 @@ let solve = () => {
     let line9 = [I1, I2, I3, I4, I5, I6, I7, I8, I9];
 
     // group all arrays in a grid
-    let grid = [line1, line2, line3, line4, line5, line6, line7, line8, line9] 
+    let grid = [line1, line2, line3, line4, line5, line6, line7, line8, line9];
 
-    //aget all the values of the vertical line of a value 
+    //get all the values of the vertical line of a particular value 
     let getVerticalLine = (num, horizontalLine) => {
         //get the index of the value in order take every value at this index in every line
-        index = horizontalLine.indexOf(num).toString();
+        index = horizontalLine.indexOf(num);
         verticalLine = [];
         //iterate through every line of the grid and add the value at the index except the one from the line where the value is taken from 
         for (line of grid) {
@@ -110,6 +110,127 @@ let solve = () => {
             } 
         }
         return verticalLine;
+    }
+
+    let getSquareValues = (num, horizontalLine) => {
+        //get the index of the value in order to determine from which of the 9 squares our value is part of
+        index = horizontalLine.indexOf(num);
+        //get the index of our line in order to determine from which of the 9 squares our value is part of 
+        lineIndex = grid.indexOf(horizontalLine);
+        squareValue = [];
+
+        //check in which square our value is and crrate an array with each value from the square except our own
+        if (index < 3 && lineIndex < 3) {
+            //iterate through line 1 to 3
+            for (line = 0; line < 3; line++) {
+                //iterate through columns 1 to 3
+                for (column = 0; column < 3; column++) {
+                    //check that we don't include our own value
+                    if (!(line === lineIndex && column === index)) {
+                        squareValue.push(grid[line][column]);
+                    }
+                }
+            }
+            return squareValue;  
+        } else if (index < 6 && lineIndex < 3) {
+            //iterate through line 1 to 3
+            for (line = 0; line < 3; line++) {
+                //iterate through columns 4 to 6
+                for (column = 3; column < 6; column++) {
+                    //check that we don't include our own value
+                    if (!(line === lineIndex && column === index)) {
+                        squareValue.push(grid[line][column]);
+                    }
+                }
+            } 
+            return squareValue;
+        } else if (index < 9 && lineIndex < 3) {
+            //iterate through line 1 to 3
+            for (line = 0; line < 3; line++) {
+                //iterate through columns 6 to 9
+                for (column = 6; column < 9; column++) {
+                    //check that we don't include our own value
+                    if (!(line === lineIndex && column === index)) {
+                        squareValue.push(grid[line][column]);
+                    }
+                }
+            }
+            return squareValue;
+        } else if (index < 3 && lineIndex < 6) {
+            //iterate through line 4 to 6
+            for (line = 4; line < 7; line++) {
+                //iterate through columns 1 to 3
+                for (column = 0; column < 3; column++) {
+                    //check that we don't include our own value
+                    if (!(line === lineIndex && column === index)) {
+                        squareValue.push(grid[line][column]);
+                    }
+                }
+            }
+            return squareValue;
+        } else if (index < 6 && lineIndex < 6) {
+            //iterate through line 4 to 6
+            for (line = 3; line < 6; line++) {
+                //iterate through columns 4 to 6
+                for (column = 4; column < 6; column++) {
+                    //check that we don't include our own value
+                    if (!(line === lineIndex && column === index)) {
+                        squareValue.push(grid[line][column]);
+                    }
+                }
+            }
+            return squareValue;
+        } else if (index < 9 && lineIndex < 6) {
+            //iterate through line 4 to 6
+            for (line = 3; line < 6; line++) {
+                //iterate through columns 6 to 9
+                for (column = 6; column < 9; column++) {
+                    //check that we don't include our own value
+                    if (!(line === lineIndex && column === index)) {
+                        squareValue.push(grid[line][column]);
+                    }
+                }
+            }
+            return squareValue;
+        } else if (index < 3 && lineIndex < 9) {
+            //iterate through line 6 to 9
+            for (line = 6; line < 9; line++) {
+                //iterate through columns 1 to 3
+                for (column = 0; column < 3; column++) {
+                    //check that we don't include our own value
+                    if (!(line === lineIndex && column === index)) {
+                        squareValue.push(grid[line][column]);
+                    }
+                }
+            }
+            return squareValue;
+        } else if (index < 6 && lineIndex < 9) {
+            //iterate through line 6 to 9
+            for (line = 6; line < 9; line++) {
+                //iterate through columns 1 to 3
+                for (column = 3; column < 6; column++) {
+                    //check that we don't include our own value
+                    if (!(line === lineIndex && column === index)) {
+                        squareValue.push(grid[line][column]);
+                    }
+                }
+            }
+            return squareValue;
+        } else if (index < 9 && lineIndex < 9) {
+            //iterate through line 6 to 9
+            for (line = 6; line < 9; line++) {
+                //iterate through columns 1 to 3
+                for (column = 6; column < 9; column++) {
+                    //check that we don't include our own value
+                    if (!(line === lineIndex && column === index)) {
+                        squareValue.push(grid[line][column]);
+                    }
+                }
+            }
+            return squareValue;
+        } else {
+            return "Some fuckery went there";
+        }
     }
 
     //iterate through the lines of the grid 
