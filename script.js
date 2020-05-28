@@ -1,6 +1,38 @@
 let form = document.getElementById("form");
 let grid = [];
-let solveIt = document.getElementById("solveIt");
+let solveButton = document.getElementById("solveButton");
+let clearButton = document.getElementById("clearButton");
+
+//exemple available to test the program quickly
+let setExemple1 = () => {
+    grid = [
+        ["3", "", "6", "5", "", "8", "4", "", ""], 
+        ["5", "2", "", "", "", "", "", "", ""], 
+        ["", "8", "7", "", "", "", "", "3", "1"], 
+        ["", "", "3", "", "1", "", "", "8", ""], 
+        ["9","", "", "8", "6", "3", "", "", "5"], 
+        ["", "5", "", "", "9", "", "6", "", ""], 
+        ["1", "3", "", "", "", "", "2", "5", ""], 
+        ["", "", "", "", "", "", "", "7", "4"], 
+        ["", "", "5", "2", "", "6", "3", "", ""]
+    ];
+    publishGrid(grid);
+}
+
+let setExemple2 = () => {
+    grid = [
+        ["", "", "", "2", "6", "", "7", "", "1"], 
+        ["6", "8", "", "", "7", "", "", "9", ""],
+        ["1", "9", "", "", "", "4", "5", "", ""],
+        ["8", "2", "", "1", "", "", "", "4", ""],
+        ["", "", "4", "6", "", "2", "9", "", ""],
+        ["", "5", "", "", "", "3", "", "2", "8"],
+        ["", "", "9", "3", "", "", "", "7", "4"],
+        ["", "4", "", "", "5", "", "", "3", "6"],
+        ["7", "", "3", "", "1", "8", "", "", ""]
+    ];
+    publishGrid(grid);
+}
 
 //create an array of 9 arrays representing the sudoku entered by the user 
 let setGrid = () => {
@@ -18,7 +50,22 @@ let setGrid = () => {
     }
 }
 
-//get all the values of the vertical line of a particular value 
+//clear the grid 
+let clearGrid = () => {
+    flatGrid = grid.flat();
+    flatGrid.forEach((num, index) => {
+        form[index].value = "";
+    });
+}
+
+//get all the values of the row of a cell except itself 
+let getRow = (x, y) => {
+    let row = [...grid[y]];
+    row.splice(x, 1);
+    return row;
+}
+
+//get all the values of the column of a cell except itself 
 let getColumn = (x, y) => {
     let column = [];
     //iterate through every line of the grid and add the value at the index except the one from the line where the value is taken from 
@@ -30,7 +77,7 @@ let getColumn = (x, y) => {
     return column;
 }
 
-//get all the values of one of the 9 boxes 
+//get all the values of the box of the cell except itself
 let getBoxValues = (x, y) => {
     let boxValues = [];
     //bx = 0 if x is in column 0 to 2, = 1 if it's in column 3 to 5, 2 if it's in column 6 to 8 (columns start from 0)
@@ -54,7 +101,7 @@ let isGridValid = () => {
         //iterate through each column of the grid
         for (let x = 0; x < 9; x++) {
             //when a cell contains a value, we chack if doesn't already breach one of the three rules of Sudoku 
-            if (grid[y][x] !== "" && ((grid[y].includes(grid[y][x])) && (getColumn(x, y).includes(grid[y][x])) && (getBoxValues(x, y).includes(grid[y][x])))) {
+            if (grid[y][x] !== "" && ((getRow(x, y).includes(grid[y][x])) || (getColumn(x, y).includes(grid[y][x])) || (getBoxValues(x, y).includes(grid[y][x])))) {
                 return false;
             }
         }
@@ -90,12 +137,16 @@ let isComplete = () => {
     return true;
 }
 
-//main function that solves the grid 
+//publish the grid passed as an argument 
+let publishGrid = () => {
+    flatGrid = grid.flat();
+    flatGrid.forEach((num, index) => {
+        form[index].value = num;
+    });
+}
+
+//solves the grid 
 let solve = () => {
-    if (!(isGridValid())) {
-        alert("This grid is not valid, there must be an error");
-        return
-    };
     //iterate through the lines of the grid 
     for (let y = 0; y < 9; y++) {
         //iterate through each column of the grid
@@ -122,5 +173,16 @@ let solve = () => {
     }
 }
 
+//solve then publish the sudoku
+let solveAndPublish = () => {
+    setGrid();
+    if (!(isGridValid())) {
+        alert("This grid is not valid, there must be an error");
+        return;
+    };
+    solve();
+    publishGrid();
+}
 
-solveIt.addEventListener("click", solve);
+solveButton.addEventListener("click", solveAndPublish);
+clearButton.addEventListener("click", clearGrid);
