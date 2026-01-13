@@ -1,60 +1,143 @@
-html {
-    height: 100%;
-    width: 100%;
-    font-size: min(max(16px, 1.2vw), 22px);
+:root {
+    --bg-color: #f0f4f8;
+    --text-color: #1a202c;
+    --primary-color: #3182ce;
+    --primary-hover: #2c5282;
+    --secondary-color: #edf2f7;
+    --secondary-hover: #e2e8f0;
+    --board-bg: #ffffff;
+    --border-color: #cbd5e0;
+    --border-thick: #2d3748;
+    --cell-size: min(10vw, 50px);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    display: grid;
-    height: auto;
-    width: 100%;
-    gap: 0px;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, auto);
-    justify-items: center;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    background-color: #def5f7;
+    gap: 2rem;
+    width: 100%;
+    max-width: 600px;
 }
 
-form {
+header h1 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+/* Board Styles */
+.board-container {
     display: grid;
-    width: 40vw;
-    height: 40vw;
     grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: repeat(9, 1fr);
-    gap: 0px;
+    background-color: var(--board-bg);
+    padding: 4px;
+    border: 3px solid var(--border-thick);
+    border-radius: 4px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-input {
+.sudoku-cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
     text-align: center;
-    border: 1px gray solid;
-    font-size: min(max(16px, 1.2vw), 22px);
+    font-size: 1.2rem;
+    border: 1px solid var(--border-color);
+    outline: none;
+    transition: background-color 0.2s;
+    appearance: textfield; /* Remove spinner on some browsers */
 }
 
-h1 {
-    text-align: center;
+/* Chrome, Safari, Edge, Opera */
+.sudoku-cell::-webkit-outer-spin-button,
+.sudoku-cell::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
+.sudoku-cell:focus {
+    background-color: #ebf8ff;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Thicker borders for 3x3 grids */
 .border-right {
-    border-right: 2px black solid;
-}
-
-.border-left {
-    border-left: 2px black solid;
+    border-right: 2px solid var(--border-thick) !important;
 }
 
 .border-bottom {
-    border-bottom: 2px black solid;
+    border-bottom: 2px solid var(--border-thick) !important;
+}
+
+.border-left {
+    border-left: 2px solid var(--border-thick) !important;
 }
 
 .border-top {
-    border-top: 2px black solid;
+    border-top: 2px solid var(--border-thick) !important;
 }
 
-.button  {
-    width: 20vw;
-    height: 3vw;
+/* Controls */
+.controls {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+}
+
+.primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.secondary {
     background-color: white;
-    border: 2px lightgrey solid;
-    font-size: min(max(16px, 1.2vw), 22px);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.secondary:hover {
+    background-color: var(--secondary-hover);
+}
+
+footer {
+    margin-top: auto;
+    font-size: 0.8rem;
+    color: #a0aec0;
 }
